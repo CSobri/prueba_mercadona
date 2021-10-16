@@ -8,6 +8,7 @@ import kotlinx.coroutines.withContext
 import okhttp3.ConnectionPool
 import okhttp3.OkHttpClient
 import okhttp3.Protocol
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.HttpException
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -31,6 +32,8 @@ class RetrofitClient {
     }
 
     private val client by lazy {
+        val logginInteceptor = HttpLoggingInterceptor()
+        logginInteceptor.level = HttpLoggingInterceptor.Level.BASIC
         Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)
             .client(
@@ -41,6 +44,7 @@ class RetrofitClient {
                     .readTimeout(15, TimeUnit.SECONDS)
                     .connectionPool(ConnectionPool(0, 5, TimeUnit.MINUTES))
                     .protocols(listOf(Protocol.HTTP_1_1))
+                    .addInterceptor(logginInteceptor)
                     .build()
             )
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create())) // Gson
@@ -75,4 +79,6 @@ class RetrofitClient {
             }
         }
     }
+
+    suspend fun getPlanets() = client.getPlanets(searchQuery = "planets", number = 100)
 }

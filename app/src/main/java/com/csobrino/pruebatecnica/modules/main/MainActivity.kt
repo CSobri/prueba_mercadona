@@ -1,6 +1,7 @@
 package com.csobrino.pruebatecnica.modules.main
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -21,9 +22,12 @@ class MainActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
 
         initObservers()
+        viewModel.getPlanetList()
     }
 
     private fun initObservers() {
-
+        viewModel.planetList.observe(this) {
+            Log.d("PlanetList", "List size:${it.size}")
+        }
     }
 }
