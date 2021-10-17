@@ -24,4 +24,8 @@ object Constants {
     const val SERVER_TIMEOUT_CODE = 408
     const val SERVER_INTERNALSERVER_CODE = 500
     const val SERVER_BANNED_CODE = 403
+
+    //VIEW ORDER VIEWSWITCHER
+    const val SHIMMER_LOADER = 0
+    const val PLANET_LIST = 1
 }

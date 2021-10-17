@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">PruebaTecnica</string>
+    <string name="explanation">Explanation:</string>
+    <string name="add_element_under_construction">Add new element is currently under development.</string>
+    <string name="date">Date</string>
+    <string name="copyright">Copyright</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
 </resources>

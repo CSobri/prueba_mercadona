@@ -1,12 +1,12 @@
 package com.csobrino.pruebatecnica.modules.main
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.csobrino.pruebatecnica.R
 import com.csobrino.pruebatecnica.databinding.ActivityMainBinding
+import com.csobrino.pruebatecnica.modules.main.crud.CrudFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -20,14 +20,22 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         binding.lifecycleOwner = this
+        binding.activity = this
 
-        initObservers()
-        viewModel.getPlanetList()
+
+        showCrudFragment()
+
     }
 
-    private fun initObservers() {
-        viewModel.planetList.observe(this) {
-            Log.d("PlanetList", "List size:${it.size}")
-        }
+    private fun showCrudFragment() {
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+
+        fragmentTransaction.replace(
+            binding.container.id,
+            CrudFragment.newInstance(null),
+            "crud"
+        ).commit()
     }
+
 }

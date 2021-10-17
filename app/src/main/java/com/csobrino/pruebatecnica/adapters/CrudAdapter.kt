@@ -1,0 +1,64 @@
+package com.csobrino.pruebatecnica.adapters
+
+import android.annotation.SuppressLint
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.csobrino.pruebatecnica.data.Planet
+import com.csobrino.pruebatecnica.databinding.ItemCrudBinding
+
+class CrudAdapter(private val onClickPlanet: OnClickPlanet) :
+    ListAdapter<Planet, CrudAdapter.ViewHolder>(ListAdapterCallback()) {
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(getItem(position)!!, onClickPlanet)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder.from(parent)
+    }
+
+    class ViewHolder private constructor(private val binding: ItemCrudBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: Planet, onClickPlanet: OnClickPlanet) {
+            binding.planet = item
+            binding.clickInterface = onClickPlanet
+            binding.adapterPos = adapterPosition
+
+            Glide.with(binding.image.context).load(item.hdurl).into(binding.image)
+        }
+
+        companion object {
+            fun from(parent: ViewGroup): ViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = ItemCrudBinding.inflate(layoutInflater, parent, false)
+                return ViewHolder(binding)
+            }
+        }
+    }
+
+    class ListAdapterCallback : DiffUtil.ItemCallback<Planet>() {
+        override fun areItemsTheSame(
+            oldItem: Planet,
+            newItem: Planet
+        ): Boolean {
+            return oldItem == newItem
+        }
+
+        @SuppressLint("DiffUtilEquals")
+        override fun areContentsTheSame(
+            oldItem: Planet,
+            newItem: Planet
+        ): Boolean {
+            return oldItem == newItem
+        }
+    }
+
+    interface OnClickPlanet {
+        fun zoomImage(url: String)
+        fun item(planet: Planet)
+    }
+}
