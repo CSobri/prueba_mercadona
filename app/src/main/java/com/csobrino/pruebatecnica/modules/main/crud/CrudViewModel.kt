@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.csobrino.pruebatecnica.api.RetrofitClient
-import com.csobrino.pruebatecnica.data.Planet
+import com.csobrino.pruebatecnica.data.Product
 import com.csobrino.pruebatecnica.helpers.Constants
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import retrofit2.Response
 
 class CrudViewModel : ViewModel() {
-    var planetList = MutableLiveData<ArrayList<Planet>>()
+    var planetList = MutableLiveData<ArrayList<Product>>()
 
     init {
 
@@ -27,7 +27,7 @@ class CrudViewModel : ViewModel() {
                     override fun onResponse(response: Response<Any>) {
                         when (response.code()) {
                             Constants.SERVER_SUCCESS_CODE -> {
-                                planetList.value = response.body() as ArrayList<Planet>
+                                planetList.value = response.body() as ArrayList<Product>
                             }
                             Constants.SERVER_BADREQUEST_CODE,
                             Constants.SERVER_UNAUTHORIZED_CODE,

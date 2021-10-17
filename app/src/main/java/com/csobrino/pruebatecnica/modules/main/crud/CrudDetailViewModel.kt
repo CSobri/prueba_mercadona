@@ -2,10 +2,10 @@ package com.csobrino.pruebatecnica.modules.main.crud
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.csobrino.pruebatecnica.data.Planet
+import com.csobrino.pruebatecnica.data.Product
 
 class CrudDetailViewModel : ViewModel() {
-    var planet = MutableLiveData<Planet>()
+    var planet = MutableLiveData<Product>()
     var isEditMode = MutableLiveData(false)
 
     fun setEditMode() {

@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.csobrino.pruebatecnica.R
 import com.csobrino.pruebatecnica.adapters.CrudAdapter
-import com.csobrino.pruebatecnica.data.Planet
+import com.csobrino.pruebatecnica.data.Product
 import com.csobrino.pruebatecnica.databinding.DialogImageBinding
 import com.csobrino.pruebatecnica.databinding.FragmentCrudBinding
 import com.csobrino.pruebatecnica.helpers.Constants
@@ -56,9 +56,9 @@ class CrudFragment : Fragment() {
                 showModalImage(url)
             }
 
-            override fun item(planet: Planet) {
+            override fun item(product: Product) {
                 startActivity(Intent(requireContext(), CrudDetailActivity::class.java).apply {
-                    putExtra("planet", planet)
+                    putExtra("planet", product)
                 })
             }
 

@@ -3,7 +3,7 @@ package com.csobrino.pruebatecnica.data
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-class Planet : Serializable {
+class Product : Serializable {
     @SerializedName("apod_site")
     var apodSite = ""
     var copyright = ""

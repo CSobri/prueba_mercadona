@@ -10,7 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.csobrino.pruebatecnica.R
-import com.csobrino.pruebatecnica.data.Planet
+import com.csobrino.pruebatecnica.data.Product
 import com.csobrino.pruebatecnica.databinding.ActivityDetailCrudBinding
 import com.csobrino.pruebatecnica.databinding.DialogImageBinding
 
@@ -31,7 +31,7 @@ class CrudDetailActivity : AppCompatActivity() {
 
         initObservers()
         configToolbar()
-        viewModel.planet.value = intent.getSerializableExtra("planet") as? Planet
+        viewModel.planet.value = intent.getSerializableExtra("planet") as? Product
     }
 
     private fun configToolbar() {

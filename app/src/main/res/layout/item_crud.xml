@@ -6,7 +6,7 @@
 
         <variable
             name="planet"
-            type="com.csobrino.pruebatecnica.data.Planet" />
+            type="com.csobrino.pruebatecnica.data.Product" />
 
         <variable
             name="clickInterface"

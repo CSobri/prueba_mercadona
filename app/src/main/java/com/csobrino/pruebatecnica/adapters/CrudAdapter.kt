@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.csobrino.pruebatecnica.data.Planet
+import com.csobrino.pruebatecnica.data.Product
 import com.csobrino.pruebatecnica.databinding.ItemCrudBinding
 
 class CrudAdapter(private val onClickPlanet: OnClickPlanet) :
-    ListAdapter<Planet, CrudAdapter.ViewHolder>(ListAdapterCallback()) {
+    ListAdapter<Product, CrudAdapter.ViewHolder>(ListAdapterCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position)!!, onClickPlanet)
@@ -23,7 +23,7 @@ class CrudAdapter(private val onClickPlanet: OnClickPlanet) :
 
     class ViewHolder private constructor(private val binding: ItemCrudBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Planet, onClickPlanet: OnClickPlanet) {
+        fun bind(item: Product, onClickPlanet: OnClickPlanet) {
             binding.planet = item
             binding.clickInterface = onClickPlanet
             binding.adapterPos = adapterPosition
@@ -40,18 +40,18 @@ class CrudAdapter(private val onClickPlanet: OnClickPlanet) :
         }
     }
 
-    class ListAdapterCallback : DiffUtil.ItemCallback<Planet>() {
+    class ListAdapterCallback : DiffUtil.ItemCallback<Product>() {
         override fun areItemsTheSame(
-            oldItem: Planet,
-            newItem: Planet
+            oldItem: Product,
+            newItem: Product
         ): Boolean {
             return oldItem == newItem
         }
 
         @SuppressLint("DiffUtilEquals")
         override fun areContentsTheSame(
-            oldItem: Planet,
-            newItem: Planet
+            oldItem: Product,
+            newItem: Product
         ): Boolean {
             return oldItem == newItem
         }
@@ -59,6 +59,6 @@ class CrudAdapter(private val onClickPlanet: OnClickPlanet) :
 
     interface OnClickPlanet {
         fun zoomImage(url: String)
-        fun item(planet: Planet)
+        fun item(product: Product)
     }
 }
