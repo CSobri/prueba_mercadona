@@ -16,4 +16,7 @@ class Product : Serializable {
     fun getDateAndCopyRight(): String {
         return "[$date] $copyright"
     }
+
+    //local param
+    var isExpanded = false
 }

@@ -1,9 +1,11 @@
 package com.csobrino.pruebatecnica.modules.main.crud
 
+import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -56,10 +58,17 @@ class CrudFragment : Fragment() {
                 showModalImage(url)
             }
 
-            override fun item(product: Product) {
+            override fun editItem(product: Product, adapterPosition: Int) {
                 startActivity(Intent(requireContext(), CrudDetailActivity::class.java).apply {
                     putExtra("planet", product)
                 })
+            }
+
+            override fun unfoldItem(adapterPosition: Int) {
+                val currentItem = crudAdapter.currentList[adapterPosition]
+                currentItem.isExpanded = !currentItem.isExpanded
+                crudAdapter.notifyItemChanged(adapterPosition)
+
             }
 
         })
