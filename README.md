@@ -14,3 +14,10 @@ Proyecto desarrollado en Kotlin utlizando LiveData + ViewBinding.
 ## Dependencias Utilizadas
 - Retrofit2 `https://github.com/square/retrofit.git`
 - Shimmer `https://facebook.github.io/shimmer-android/`
+
+## Funcionalidades definidas
+
+- Listado de APODs desde Backed
+- Soporte modo oscuro y claro.
+- Refresco de listado realizando un pulldown de la vista.
+- El modo edición no cambia realmente los valores contra el Backend.
