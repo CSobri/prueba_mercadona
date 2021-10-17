@@ -1,11 +1,9 @@
 package com.csobrino.pruebatecnica.modules.main.crud
 
-import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -35,13 +33,13 @@ class CrudFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.fragment = this
 
+        initListeners()
         initAdapter()
         initObservers()
 
         viewModel.getPlanetList()
         return binding.root
     }
-
 
     companion object {
         @JvmStatic
@@ -51,6 +49,14 @@ class CrudFragment : Fragment() {
             return fragment
         }
     }
+
+    private fun initListeners() {
+        binding.swipeRefresh.setOnRefreshListener {
+            showShimmerEffect(true)
+            viewModel.getPlanetList()
+        }
+    }
+
 
     private fun initAdapter() {
         crudAdapter = CrudAdapter(object : CrudAdapter.OnClickPlanet {
@@ -77,6 +83,8 @@ class CrudFragment : Fragment() {
 
     private fun initObservers() {
         viewModel.planetList.observe(viewLifecycleOwner) {
+            if (binding.swipeRefresh.isRefreshing)
+                binding.swipeRefresh.isRefreshing = false
             crudAdapter.submitList(it)
             showShimmerEffect(false)
         }
