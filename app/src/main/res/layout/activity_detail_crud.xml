@@ -146,12 +146,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
-                        android:editable="false"
                         android:enabled="false"
                         android:maxLines="1"
                         android:singleLine="true"
                         android:text="@{viewModel.planet.title}"
-                        android:textAllCaps="true"
                         tools:text="@tools:sample/lorem/random" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -167,10 +165,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
-                        android:editable="false"
                         android:enabled="false"
                         android:text="@{viewModel.planet.description}"
-                        android:textAllCaps="true"
                         tools:text="@tools:sample/lorem/random" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>

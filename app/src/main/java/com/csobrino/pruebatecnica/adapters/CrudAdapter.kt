@@ -2,11 +2,13 @@ package com.csobrino.pruebatecnica.adapters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.csobrino.pruebatecnica.R
 import com.csobrino.pruebatecnica.data.Product
 import com.csobrino.pruebatecnica.databinding.ItemCrudBinding
 
@@ -29,6 +31,17 @@ class CrudAdapter(private val onClickPlanet: OnClickPlanet) :
             binding.adapterPos = adapterPosition
 
             Glide.with(binding.image.context).load(item.hdurl).into(binding.image)
+
+            when (item.isExpanded) {
+                true -> {
+                    binding.imageUnfold.setImageResource(R.drawable.ic_baseline_unfold_less_24)
+                    binding.linearDescription.visibility = View.VISIBLE
+                }
+                false -> {
+                    binding.imageUnfold.setImageResource(R.drawable.ic_baseline_unfold_more_24)
+                    binding.linearDescription.visibility = View.GONE
+                }
+            }
         }
 
         companion object {
@@ -59,6 +72,7 @@ class CrudAdapter(private val onClickPlanet: OnClickPlanet) :
 
     interface OnClickPlanet {
         fun zoomImage(url: String)
-        fun item(product: Product)
+        fun editItem(product: Product, adapterPosition: Int)
+        fun unfoldItem(adapterPosition: Int)
     }
 }

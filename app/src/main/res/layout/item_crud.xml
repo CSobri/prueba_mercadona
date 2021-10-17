@@ -17,74 +17,116 @@
             type="Integer" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="6dp"
-        android:foreground="?attr/selectableItemBackground"
-        android:onClick="@{()->clickInterface.item(planet)}">
+        android:minHeight="200dp"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/text_date"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-            android:gravity="center"
-            android:text="@{planet.date}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="1999-19-19" />
-
-
-        <TextView
-            android:id="@+id/text_copyright"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="6dp"
-            android:gravity="center_vertical"
-            android:text="@{planet.copyright}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/text_title"
-            app:layout_constraintStart_toEndOf="@id/text_date"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="20-12-20" />
-
-        <TextView
-            android:id="@+id/text_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-            android:layout_weight="1"
-            android:text="@{planet.title}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/card_image"
-            app:layout_constraintStart_toEndOf="@id/text_copyright"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="20-12-20" />
-
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_image"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginHorizontal="6dp"
-            android:foreground="?attr/selectableItemBackground"
-            android:onClick="@{()->clickInterface.zoomImage(planet.hdurl)}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="20-12-20">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/image"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="200dp"
                 android:adjustViewBounds="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:onClick="@{()->clickInterface.zoomImage(planet.hdurl)}"
                 android:scaleType="centerCrop"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:src="@tools:sample/avatars" />
-        </com.google.android.material.card.MaterialCardView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@drawable/gradient_black"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_copyright"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="6dp"
+                android:gravity="center_vertical"
+                android:padding="6dp"
+                android:text="@{planet.dateAndCopyRight}"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/image_unfold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_title"
+                tools:text="@tools:sample/lorem" />
+
+            <TextView
+                android:id="@+id/text_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_weight="1"
+                android:maxLines="2"
+                android:padding="6dp"
+                android:text="@{planet.title}"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/image_unfold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_goneMarginStart="6dp"
+                tools:text="@tools:sample/lorem/random" />
+
+            <ImageButton
+                android:id="@+id/image_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:onClick="@{()->clickInterface.editItem(planet,adapterPos)}"
+                android:padding="16sp"
+                android:src="@drawable/ic_baseline_edit_24"
+                android:tint="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/image_unfold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:onClick="@{()->clickInterface.unfoldItem(adapterPos)}"
+                android:padding="16sp"
+                android:src="@drawable/ic_baseline_unfold_more_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/description"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="@{planet.description}"
+                tools:text="@tools:sample/lorem/random" />
+        </LinearLayout>
+
+    </LinearLayout>
 
 </layout>

@@ -33,13 +33,13 @@ class CrudFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.fragment = this
 
+        initListeners()
         initAdapter()
         initObservers()
 
         viewModel.getPlanetList()
         return binding.root
     }
-
 
     companion object {
         @JvmStatic
@@ -50,16 +50,31 @@ class CrudFragment : Fragment() {
         }
     }
 
+    private fun initListeners() {
+        binding.swipeRefresh.setOnRefreshListener {
+            showShimmerEffect(true)
+            viewModel.getPlanetList()
+        }
+    }
+
+
     private fun initAdapter() {
         crudAdapter = CrudAdapter(object : CrudAdapter.OnClickPlanet {
             override fun zoomImage(url: String) {
                 showModalImage(url)
             }
 
-            override fun item(product: Product) {
+            override fun editItem(product: Product, adapterPosition: Int) {
                 startActivity(Intent(requireContext(), CrudDetailActivity::class.java).apply {
                     putExtra("planet", product)
                 })
+            }
+
+            override fun unfoldItem(adapterPosition: Int) {
+                val currentItem = crudAdapter.currentList[adapterPosition]
+                currentItem.isExpanded = !currentItem.isExpanded
+                crudAdapter.notifyItemChanged(adapterPosition)
+
             }
 
         })
@@ -68,6 +83,8 @@ class CrudFragment : Fragment() {
 
     private fun initObservers() {
         viewModel.planetList.observe(viewLifecycleOwner) {
+            if (binding.swipeRefresh.isRefreshing)
+                binding.swipeRefresh.isRefreshing = false
             crudAdapter.submitList(it)
             showShimmerEffect(false)
         }
